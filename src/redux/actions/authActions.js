@@ -1,5 +1,5 @@
 import { OPT_VERIFICATION_API, PHONE_API } from "../../config/urls";
-import { apiPost, setUserData } from "../../utils/utils";
+import { apiPost, clearUserData, setUserData } from "../../utils/utils";
 import store from "../store";
 import types from "../types";
 
@@ -20,6 +20,13 @@ export const clearReduxState=()=>{
         type: types.CLEAR_REDUX_STATE,
         payload: {},
     })
+}
+
+export const logout=()=>{
+    clearUserData().then(res=>{
+        console.log(res);
+        clearReduxState();
+    }).catch(error=> console.log(error))
 }
 
 

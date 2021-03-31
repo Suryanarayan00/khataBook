@@ -11,6 +11,7 @@ import WrapperContainer from '../../../Component/WrapperContainer';
 // constant import
 import imagePath from '../../../constant/imagePath';
 import strings from '../../../constant/language';
+import { logout } from '../../../redux/actions/authActions';
 
 
 // style import
@@ -37,17 +38,17 @@ class Home extends Component {
                         </View>
                         <View style={[commonStyles.inline, commonStyles.center]}>
                             <ImageIcon iconStyle={{ marginHorizontal: 3 }} size={22} source={imagePath.rupees} backgroundColor={colors.themeColor} tintColor={colors.white} />
-                            <ImageIcon size={19} source={imagePath.contact} backgroundColor={colors.themeColor} tintColor={colors.white} />
+                            <TouchableOpacity onPress={logout}><ImageIcon size={19} source={imagePath.contact} backgroundColor={colors.themeColor} tintColor={colors.white} /></TouchableOpacity>
                         </View>
                     </View>
                     <View style={[commonStyles.box, { backgroundColor: colors.white, paddingTop: 15 }]}>
                         <View style={[commonStyles.inline, { justifyContent: 'space-evenly' }]}>
                             <View style={commonStyles.center}>
-                                <Text style={[commonStyles.mediumFont, {color: colors.green}]}>$ 420</Text>
+                                <Text style={[commonStyles.mediumFont, { color: colors.green }]}>$ 420</Text>
                                 <Text style={commonStyles.smallGreyFont}>{strings.YOU_WILL_GET}</Text>
                             </View>
                             <View style={commonStyles.center}>
-                                <Text style={[commonStyles.mediumFont, {color: colors.pink}]}>$ 420</Text>
+                                <Text style={[commonStyles.mediumFont, { color: colors.pink }]}>$ 420</Text>
                                 <Text style={commonStyles.smallGreyFont}>{strings.YOU_WILL_GET}</Text>
                             </View>
                         </View>
@@ -76,8 +77,8 @@ class Home extends Component {
 
 
                 {/* add customer button */}
-                <TouchableOpacity style={[commonStyles.border, commonStyles.center, {position: 'absolute', width: '50%', bottom: 10,right: 10, backgroundColor: colors.pink, }]}>
-                    <IconTextRow size={29} tintColor={colors.white} iconStyle={{backgroundColor: colors.pink, paddingRight: 10}} text={strings.ADD_CUSTOMER} source={imagePath.addCustomer} />
+                <TouchableOpacity style={[commonStyles.border, commonStyles.center, { position: 'absolute', width: '50%', bottom: 10, right: 10, backgroundColor: colors.pink, }]}>
+                    <IconTextRow size={29} tintColor={colors.white} iconStyle={{ backgroundColor: colors.pink, paddingRight: 10 }} text={strings.ADD_CUSTOMER} source={imagePath.addCustomer} />
                 </TouchableOpacity>
 
             </WrapperContainer>

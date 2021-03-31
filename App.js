@@ -6,30 +6,35 @@ import store from './src/redux/store';
 import FlashMessage from 'react-native-flash-message';
 import { getUserData } from './src/utils/utils';
 import { saveUserData } from './src/redux/actions/authActions';
+import SplashScreen from 'react-native-splash-screen';
 
 
 
+export default class App extends Component {
 
-export default class App extends Component{
 
-
-  componentDidMount=()=>{
-    getUserData().then(res=>{
-      const userData=res;
-      if(userData && !! userData.accessToken){
+  componentDidMount = () => {
+    getUserData().then(res => {
+      SplashScreen.hide();
+      const userData = res;
+      if (userData && !!userData.accessToken) {
         saveUserData(userData);
       }
-    }).catch(err=> console.log(err))
+    }).catch(err => {
+      console.log(err)
+      SplashScreen.hide();
+    }
+    )
   }
- 
 
-  render(){
-    return(
+
+  render() {
+    return (
       <SafeAreaProvider>
         <Provider store={store}>
-          <Routes/>
+          <Routes />
         </Provider>
-        <FlashMessage position='top'/>
+        <FlashMessage position='top' />
       </SafeAreaProvider>
     )
   }

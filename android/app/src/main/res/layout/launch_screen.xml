@@ -12,5 +12,3 @@
         android:scaleType="centerCrop"
         android:src="@drawable/splash"></ImageView>
 </FrameLayout>
-
-
