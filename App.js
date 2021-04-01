@@ -15,16 +15,18 @@ export default class App extends Component {
 
   componentDidMount = () => {
     getUserData().then(res => {
-      SplashScreen.hide();
       const userData = res;
       if (userData && !!userData.accessToken) {
         saveUserData(userData);
       }
+      setTimeout(()=>{
+        SplashScreen.hide();
+      })
     }).catch(err => {
-      console.log(err)
-      SplashScreen.hide();
+      console.log(err, "@@@app .js")
     }
     )
+   
   }
 
 

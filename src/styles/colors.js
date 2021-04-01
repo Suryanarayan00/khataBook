@@ -1,5 +1,15 @@
+import store from "../redux/store";
+
+
+let {getState} = store;
+const themeColor = getState().homeReducers.themeColor;
+
+
 export default {
-    themeColor: '#1493ff',
+    // themeColor: '#1493ff',
+    themeColor,
+    theme2Color: 'red',
+    theme3Color: 'yellow',
     darkGrey: '#484848',
     btnABlue: '#306F94',
     btnBBlue: '#32A3E0',

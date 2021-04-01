@@ -24,30 +24,19 @@ export const clearReduxState=()=>{
 
 export const logout=()=>{
     clearUserData().then(res=>{
-        console.log(res);
         clearReduxState();
     }).catch(error=> console.log(error))
 }
 
 
 export const loginUsingPhone = (data) => {
-    console.log(data, 'phone data');
-    return new Promise((resolve, reject) => {
-        apiPost(PHONE_API, data).then((res) => {
-            resolve(res);
-        }).catch((error) => {
-            reject(error)
-        })
-    })
+    return apiPost(PHONE_API, data)
 }
 
 export const otpVerification = (data) => {
-    console.log(data, 'otp verification')
     return new Promise((resolve, reject) => {
         apiPost(OPT_VERIFICATION_API, data).then((res) => {
-            console.log(res.data, '@@@@@@@api post ')
             setUserData(res.data).then((res) => {
-                console.log(res, '@@@@@@@res and setUserData')
                 resolve(res)
             }).catch((error) => {
                 reject(error)

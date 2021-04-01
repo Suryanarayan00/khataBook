@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 // custom Component import
-import AccountDetailBox from '../../../Component/AccountDetailBox';
 import IconTextRow from '../../../Component/IconTextRow';
 import ImageIcon from '../../../Component/ImageIcon';
 import WrapperContainer from '../../../Component/WrapperContainer';
@@ -11,7 +10,7 @@ import WrapperContainer from '../../../Component/WrapperContainer';
 // constant import
 import imagePath from '../../../constant/imagePath';
 import strings from '../../../constant/language';
-import { logout } from '../../../redux/actions/authActions';
+import actions from '../../../redux/actions';
 
 
 // style import
@@ -22,6 +21,9 @@ import commonStyles from '../../../styles/commonStyles';
 class Home extends Component {
 
 
+    changeThemeColor=()=>{
+        actions.changeThemeColor('red');
+    }
 
     render() {
         return (
@@ -37,8 +39,8 @@ class Home extends Component {
                             <ImageIcon size={18} iconStyle={{ marginHorizontal: 3 }} source={imagePath.downArrow} backgroundColor={colors.themeColor} tintColor={colors.white} />
                         </View>
                         <View style={[commonStyles.inline, commonStyles.center]}>
-                            <ImageIcon iconStyle={{ marginHorizontal: 3 }} size={22} source={imagePath.rupees} backgroundColor={colors.themeColor} tintColor={colors.white} />
-                            <TouchableOpacity onPress={logout}><ImageIcon size={19} source={imagePath.contact} backgroundColor={colors.themeColor} tintColor={colors.white} /></TouchableOpacity>
+                            <TouchableOpacity onPress={this.changeThemeColor} style={[commonStyles.paddingBox,commonStyles.border, {backgroundColor: colors.theme2Color}]}><Text>theme</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={actions.logout} style={[commonStyles.paddingBox, commonStyles.border]}><Text>{strings.LOGOUT}</Text></TouchableOpacity>
                         </View>
                     </View>
                     <View style={[commonStyles.box, { backgroundColor: colors.white, paddingTop: 15 }]}>

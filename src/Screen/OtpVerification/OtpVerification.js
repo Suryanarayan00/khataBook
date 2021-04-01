@@ -20,6 +20,8 @@ import imagePath from '../../constant/imagePath';
 import actions from '../../redux/actions';
 import Loader from '../../Component/Loader';
 import ImageIcon from '../../Component/ImageIcon';
+import { saveUserData } from '../../redux/actions/authActions';
+import { getUserData } from '../../utils/utils';
 
 
 
@@ -72,11 +74,14 @@ export default function OtpVerification({ navigation, route }) {
         "registerFrom": "ANDROID"
       }).then((res) => {
         updateState({ isLoading:false })
-        // console.log(res)
-        navigation.navigate(navigationStrings.MAIN)
+        getUserData().then(res=>{
+          saveUserData(res)
+        }).catch(err=>console.log(err))
+        
 
       }).catch((error) => {
         alert(error.message);
+        navigation.navigate(navigationStrings.LOGIN)
         updateState({ isLoading: false })
       })
     }

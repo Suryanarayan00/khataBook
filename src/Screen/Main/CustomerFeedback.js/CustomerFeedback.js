@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Modal, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import FeedbackCard from '../../../Component/FeedbackCard';
 import ImageIcon from '../../../Component/ImageIcon';
+import SearchBar from '../../../Component/SearchBar';
 import WrapperContainer from '../../../Component/WrapperContainer';
 import imagePath from '../../../constant/imagePath';
 import actions from '../../../redux/actions';
@@ -20,60 +21,74 @@ class CustomerFeedback extends Component {
         data: [],
         isLoading: false,
         noMoreData: false,
-        isLoadingData: true,
         refreshing: false,
     }
 
 
 
+    // get api function
     getData = () => {
         let { limit, skip, data } = this.state;
-        this.setState({ isLoading: true })
+
         actions.feedbackData({ "searchType": "LEADERBOARD", "limit": `${limit}`, "skip": `${skip}` }).then(res => {
             if (res.data.length) {
-                let updatedData = [...data];
-                this.setState({ data: [...updatedData, ...res.data], isLoading: false, refreshing: false, skip: data.length })
-                console.log(res.data)
-
+                let updatedData = [...data, ...res.data];
+                this.setState({ data: updatedData, isLoading: false, refreshing: false, skip: skip + 10 })
             }
             else {
-                this.setState({ noMoreData: true, isLoadingData: false, refreshing: false, isLoading: false })
+                this.setState({ noMoreData: true, refreshing: false, isLoading: false, skip: 0 })
             }
         }).catch(err => {
             if (err.statusCode == 401) {
                 clearUserData();
             }
-            this.setState({ isLoading: false, refreshing: false, });
+            this.setState({ isLoading: false, refreshing: false });
         })
     }
 
 
 
-
+// on refresh function
     _onRefresh = () => {
-        this.setState({ refreshing: true, noMoreData: false, isLoadingData: true, data: [], skip: 0 });
-        this.getData();
-        
+        this.setState({
+            refreshing: true,
+            noMoreData: false,
+            data: [],
+            skip: 0
+        }, () => {
+
+            this.getData();
+        })
+
+
     };
 
-    
 
+
+    // componentDid mount
     componentDidMount = () => {
         this.setState({ isLoading: true });
         this.getData();
     }
 
 
+
+    // function to handle load more data
     _handleLoadMore = () => {
-        let { noMoreData, isLoadingData } = this.state;
-        if (!isLoadingData || noMoreData) {
+        this.setState({ isLoading: true })
+        let { noMoreData } = this.state;
+        if (noMoreData) {
+            this.setState({ isLoading: false })
             return
         }
         this.getData();
     }
 
+
+
+
     render() {
-        let { data, refreshing, isLoading} = this.state;
+        let { data, refreshing, isLoading } = this.state;
         return (
             <WrapperContainer>
                 <View style={commonStyles.box}>
@@ -91,7 +106,9 @@ class CustomerFeedback extends Component {
                 </View>
 
 
-                {<FeedbackCard onRefresh={this._onRefresh} isLoading={isLoading} refreshing={refreshing} renderFooter={this.renderFooter}  data={data} _handleLoadMore={this._handleLoadMore} />}
+                <SearchBar />
+
+                {<FeedbackCard onRefresh={this._onRefresh} isLoading={isLoading} refreshing={refreshing} renderFooter={this.renderFooter} data={data} _handleLoadMore={this._handleLoadMore} />}
 
             </WrapperContainer>
         )

@@ -12,6 +12,7 @@ export default{
     YOUR_NAME:"Your name *",
     YOUR_EMAIL:"Your email *",
     YOUR_PHONE_NUMBER:"Your phone no *",
+    LOGOUT: 'logout',
 
 
 

@@ -1,16 +1,14 @@
-import { USER_DATA_API } from "../../config/urls"
-import { apiPost } from "../../utils/utils"
+import { SEARCH_USER_API, USER_DATA_API } from "../../config/urls"
+import { apiGet, apiPost } from "../../utils/utils"
 
-export function feedbackData(data){
-    return new Promise((resolve, reject)=>{
-        apiPost(USER_DATA_API ,data).then((res)=>{
-            resolve(res);
-        }).catch((error)=>{
-            reject(error);
-        })
-    })
+export function feedbackData(data) {
+    return apiPost(USER_DATA_API, data)
 }
 
+
+export function seacrhCustomer(query) {
+    return apiGet(`${SEARCH_USER_API}${query}`);
+}
 
 
 // {"searchType": "LEADERBOARD", "limit":"10", "skip":"0"}

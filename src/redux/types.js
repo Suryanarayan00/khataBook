@@ -9,4 +9,5 @@ export default {
     NO_INTERNET: 'noInternet',
     SAVE_VIEW_DATA: 'saveViewData',
     CLEAR_REDUX_STATE: 'clearReduxState',
+    CHANGE_THEME_COLOR: 'changeThemeColor',
 }

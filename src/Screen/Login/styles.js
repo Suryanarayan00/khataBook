@@ -15,7 +15,6 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   txtSmall: {
-    ...commonStyles.mediumFont14,
     lineHeight: 24,
     textAlign: 'center',
     fontFamily: fontFamily.medium,
@@ -48,7 +47,6 @@ export default StyleSheet.create({
     borderWidth: 0,
   },
   orText:{
-    ...commonStyles.mediumFont14,
     lineHeight: 24,
     textAlign: 'center',
     fontFamily: fontFamily.medium,

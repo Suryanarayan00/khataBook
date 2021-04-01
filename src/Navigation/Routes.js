@@ -12,12 +12,13 @@ const Stack = createStackNavigator();
 
 function Routes(props) {
     let {userData} = props
-    console.log(userData);
+
+    console.log(userData, '@@@route .js')
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                {!userData && AuthStack(Stack)}
-                {MainStack(Stack)}
+                {!userData ? AuthStack(Stack): MainStack(Stack)}
+                {/* {MainStack(Stack)} */}
             </Stack.Navigator>
         </NavigationContainer>
     )
