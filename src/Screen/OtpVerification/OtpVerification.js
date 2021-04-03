@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useState } from 'react/cjs/react.development';
 import {
   CodeField,
   Cursor,
@@ -22,7 +21,6 @@ import Loader from '../../Component/Loader';
 import ImageIcon from '../../Component/ImageIcon';
 import { saveUserData } from '../../redux/actions/authActions';
 import { getUserData } from '../../utils/utils';
-
 
 
 
@@ -73,11 +71,11 @@ export default function OtpVerification({ navigation, route }) {
         "deviceToken": "123",
         "registerFrom": "ANDROID"
       }).then((res) => {
-        updateState({ isLoading:false })
-        getUserData().then(res=>{
+        updateState({ isLoading: false })
+        getUserData().then(res => {
           saveUserData(res)
-        }).catch(err=>console.log(err))
-        
+        }).catch(err => console.log(err))
+
 
       }).catch((error) => {
         alert(error.message);
@@ -94,7 +92,7 @@ export default function OtpVerification({ navigation, route }) {
         <TouchableOpacity
           onPress={() => navigation.goBack(null)}
           style={{ alignSelf: 'flex-start' }}>
-          <ImageIcon source={imagePath.back} size={38} tintColor={colors.darkGrey}/>
+          <ImageIcon source={imagePath.back} size={38} tintColor={colors.darkGrey} />
         </TouchableOpacity>
       </View>
       <View

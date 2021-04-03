@@ -1,7 +1,7 @@
 import types from "../types";
 
 const initialState = {
-    userData: null,
+    userData: {},
     internetConnection: false,
 }
 

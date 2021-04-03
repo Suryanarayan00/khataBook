@@ -64,7 +64,6 @@ class SearchCustomer extends Component {
 
     render() {
         let { data, isLoading } = this.state;
-        console.log(data, '@@@search customer Data');
         return (
             <WrapperContainer>
                 <View style={[commonStyles.border]}>

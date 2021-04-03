@@ -29,9 +29,6 @@ class Login extends Component {
     }
 
 
-    static contextType = userContext;
-
-
 
     onLoginUsingPhone = ()=>{
         let {phoneNumber} = this.state;
@@ -39,8 +36,6 @@ class Login extends Component {
         actions.loginUsingPhone({"contactDetails":{"phoneNo": phoneNumber,
         "countryCode": "+91",
          "countryCodeISO": "IN"}}).then((res)=>{
-            //  console.log(res)
-             alert('successfull');
              this.setState({isLoading: false})
              this.props.navigation.navigate(navigationStrings.OTP_VERIFICATION, {data: res.data});
          }).catch((error)=>{

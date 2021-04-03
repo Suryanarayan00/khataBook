@@ -4,7 +4,7 @@ import { MaterialIndicator } from 'react-native-indicators';
 import colors from '../styles/colors';
 import commonStyles from '../styles/commonStyles';
 import fontFamily from '../styles/fontFamily';
-import { moderateScale, moderateScaleVertical, textScale, verticalScale } from '../styles/responsiveSize';
+import { moderateScale, moderateScaleVertical, textScale } from '../styles/responsiveSize';
 
 
 
