@@ -18,7 +18,6 @@ function Routes(props) {
         <NavigationContainer>
             <Stack.Navigator>
                 {!userData.accessToken ? AuthStack(Stack): MainStack(Stack)}
-                {/* {MainStack(Stack)} */}
             </Stack.Navigator>
         </NavigationContainer>
     )

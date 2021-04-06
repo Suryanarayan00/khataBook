@@ -9,5 +9,8 @@ export default{
     MAIN: 'main',
     OTP_VERIFICATION: 'otpVerification',
     OUTER_SCREEN: 'outerScreen',
+    PIE_CHART: 'pieChart',
+    BAR_GRAPH: 'barGraph',
+    DRAWER: 'drawer',
 
 }

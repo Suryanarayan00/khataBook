@@ -1,3 +1,5 @@
+export {default as BarGraph} from "./Drawer/BarGraph/BarGraph";
+export {default as PieChart} from "./Drawer/PieChart/PieChart";
 export {default as SearchCustomer} from "./Main/SearchCustomer/SearchCustomer";
 export {default as OtpVerification} from "./OtpVerification/OtpVerification";
 export {default as OuterScreen} from "./OuterScreen/OuterScreen";

@@ -7,7 +7,7 @@ import FlashMessage from 'react-native-flash-message';
 import { getUserData } from './src/utils/utils';
 import { saveUserData } from './src/redux/actions/authActions';
 import SplashScreen from 'react-native-splash-screen';
-
+import { checkPermission } from './src/utils/permissions';
 
 
 export default class App extends Component {
@@ -19,14 +19,17 @@ export default class App extends Component {
       if (userData && !!userData.accessToken) {
         saveUserData(userData);
       }
-      setTimeout(()=>{
+      setTimeout(() => {
         SplashScreen.hide();
       })
     }).catch(err => {
       console.log(err, "@@@app .js")
     }
     )
-   
+
+
+    checkPermission();
+
   }
 
 
@@ -41,3 +44,47 @@ export default class App extends Component {
     )
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// PushNotification.configure({
+  //   // (optional) Called when Token is generated (iOS and Android)
+  //   onRegister: function (token) {
+  //     console.log("TOKEN:", token);
+  //   },
+
+  //   // (required) Called when a remote is received or opened, or local notification is opened
+  //   onNotification: function (notification) {
+  //     console.log("NOTIFICATION:", notification);
+
+  //     // process the notification
+
+  //     // (required) Called when a remote is received or opened, or local notification is opened
+  //     notification.finish(PushNotificationIOS.FetchResult.NoData);
+  //   },
+
+  // })

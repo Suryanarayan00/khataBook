@@ -30,18 +30,22 @@ class Login extends Component {
 
 
 
-    onLoginUsingPhone = ()=>{
-        let {phoneNumber} = this.state;
-        this.setState({isLoading: true})
-        actions.loginUsingPhone({"contactDetails":{"phoneNo": phoneNumber,
-        "countryCode": "+91",
-         "countryCodeISO": "IN"}}).then((res)=>{
-             this.setState({isLoading: false})
-             this.props.navigation.navigate(navigationStrings.OTP_VERIFICATION, {data: res.data});
-         }).catch((error)=>{
-             this.setState({isLoading: false})
-             console.log(error);
-         })
+    onLoginUsingPhone = () => {
+        let { phoneNumber } = this.state;
+        this.setState({ isLoading: true })
+        actions.loginUsingPhone({
+            "contactDetails": {
+                "phoneNo": phoneNumber,
+                "countryCode": "+91",
+                "countryCodeISO": "IN"
+            }
+        }).then((res) => {
+            this.setState({ isLoading: false })
+            this.props.navigation.navigate(navigationStrings.OTP_VERIFICATION, { data: res.data });
+        }).catch((error) => {
+            this.setState({ isLoading: false })
+            console.log(error);
+        })
     }
 
     onChange = (key) => {
@@ -52,10 +56,10 @@ class Login extends Component {
         }
     }
 
-    
+
 
     render() {
-        let {isLoading} = this.state
+        let { isLoading } = this.state
         return (
             <WrapperContainer>
                 <View
@@ -66,7 +70,7 @@ class Login extends Component {
                     }}>
                     <TouchableOpacity onPress={() => this.props.navigation.goBack(null)}>
                         <View style={[styles.inline,]}>
-                            <ImageIcon source={imagePath.back} size={29} tintColor={colors.darkGrey}/>
+                            <ImageIcon source={imagePath.back} size={29} tintColor={colors.darkGrey} />
                             <Text style={styles.fixedTopCenter}>Login</Text>
                         </View>
                     </TouchableOpacity>
@@ -87,13 +91,13 @@ class Login extends Component {
                         <TextInputWithLabel label="Name" onChangeText={this.onChange('name')} placeholder="Enter your name" />
                         {/* <PhoneNumberInput  onChangePhone={this.onChange('phoneNumber')}/> */}
                         {/*    <TextInput onChangeText={this.onChange('phoneNumber')}></TextInput> */}
-                        <TextInputWithLabel label="phone Number" onChangeText={this.onChange('phoneNumber')} placeholder=" enter your phone number"/>
+                        <TextInputWithLabel label="phone Number" onChangeText={this.onChange('phoneNumber')} placeholder=" enter your phone number" />
                         <TextInputWithLabel password={true} secureTextEntry={true} label="Password" onChangeText={this.onChange('password')} placeholder="Enter your password" />
                     </View>
 
 
 
-                    <Loader isLoading={isLoading}/>
+                    <Loader isLoading={isLoading} />
 
 
 
@@ -102,11 +106,41 @@ class Login extends Component {
                         onPress={this.onLoginUsingPhone}
                         btnText={strings.LOGIN_ACCOUNT}
                     />
+
+
+
+
+
+                    <View style={{ marginTop: moderateScaleVertical(50) }}>
+                        <View style={styles.socialRow}>
+                            <View style={styles.hyphen} />
+                            <Text style={styles.orText}>{strings.OR_LOGIN_WITH}</Text>
+                            <View style={styles.hyphen} />
+                        </View>
+                        <View style={styles.socialRowBtn}>
+                            <TouchableOpacity>
+                                <Image source={imagePath.google} />
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Image source={imagePath.faceBook} />
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Image source={imagePath.insta} />
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Image source={imagePath.apple} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+
+
+
                     <View style={styles.bottomContainer}>
                         <Text style={{ ...styles.txtSmall, color: colors.textGreyLight }}>
                             {strings.DID_NOT_HAVE_AN_ACCOUNT}
                             <Text
-                                onPress={()=>this.props.navigation.navigate(navigationStrings.LOGIN)}
+                                onPress={() => this.props.navigation.navigate(navigationStrings.LOGIN)}
                                 style={{
                                     color: colors.themeColor,
                                     fontFamily: fontFamily.futuraBtHeavy,
@@ -116,6 +150,11 @@ class Login extends Component {
                             </Text>
                         </Text>
                     </View>
+
+
+
+
+
                 </KeyboardAwareScrollView>
             </WrapperContainer>
         )

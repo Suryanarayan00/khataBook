@@ -2,7 +2,7 @@ import types from "../types";
 
 
 
-initialState = {
+const initialState = {
     debitData: [],
 };
 

@@ -191,10 +191,14 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     
+    // new line
     implementation platform('com.google.firebase:firebase-bom:26.8.0')
-
     implementation 'com.google.firebase:firebase-analytics'
-    
+    implementation 'com.google.firebase:firebase-messaging:10.0.0'
+    implementation project(':react-native-push-notification')
+    // new line end
+
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }

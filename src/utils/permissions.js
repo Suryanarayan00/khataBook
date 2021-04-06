@@ -1,22 +1,45 @@
-import {PermissionsAndroid, Platform, Alert} from 'react-native';
+import { PermissionsAndroid, Platform, Alert } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import messaging from '@react-native-firebase/messaging';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 
-async function requestUserPermission() {
-  const authStatus = await messaging().requestPermission();
-  const enabled =
-    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
+export const checkPermission = async () => {
+  const enabled = await messaging().hasPermission();
+  console.log(" check permission function call");
+  console.log(' check permisson function is called enabled', enabled);
   if (enabled) {
-    console.log('Authorization status:', authStatus);
+    getToken();
+  }
+  else {
+    requestPermission();
+    console.log("no permissions")
   }
 }
 
+const getToken = async () => {
+  console.log("get token is called");
+  // let fcmToken = await AsyncStorage.read('fmaToken');
+  // console.log("get token fcm Token", fcmToken);
+  // if(!fcmToken){
+  const fcmToken = await messaging().getToken();
+  console.log(fcmToken, "@@@check fcm token");
+  // if(fcmToken){
+  //   await AsyncStorage.save('fcmToken', famToken);
+  // }
+  // }
+}
 
+const requestPermission = async () => {
+  try {
+    await firebase.messaging().requestPermission();
+    // User has authorised
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const androidCameraPermission = () =>
   new Promise(async (resolve, reject) => {
@@ -37,8 +60,8 @@ export const androidCameraPermission = () =>
           Alert.alert(
             'Alert',
             "Don't have permission to open camera",
-            [{text: 'Okay'}],
-            {cancelable: true},
+            [{ text: 'Okay' }],
+            { cancelable: true },
           );
           return resolve(false);
           // alert(strings.DO_NOT_HAVE_PERMISSIONS_TO_SELECT_IMAGE);
@@ -64,28 +87,28 @@ export const androidCameraPermission = () =>
 
 
 export const locationPermission = () => new Promise(async (resolve, reject) => {
-	if (Platform.OS === 'ios') {
-		try {
-			const permissionStatus = await Geolocation.requestAuthorization('whenInUse');
-			if (permissionStatus === 'granted') {
-				return resolve('granted');
-			}
-			reject('Permission not granted');
-		} catch (error) {
-			return reject(error);
-		}
-	}
-	return PermissionsAndroid.request(
-		PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-	).then((granted) => {
-		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-			//console.log('You can use the location');
-			return resolve('granted');
-		}
-		//console.log('Location permission denied');
-		return reject('Location Permission denied');
-	}).catch((error) => {
-		console.log('Ask Location permission error: ', error);
-		return reject(error);
-	});
+  if (Platform.OS === 'ios') {
+    try {
+      const permissionStatus = await Geolocation.requestAuthorization('whenInUse');
+      if (permissionStatus === 'granted') {
+        return resolve('granted');
+      }
+      reject('Permission not granted');
+    } catch (error) {
+      return reject(error);
+    }
+  }
+  return PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  ).then((granted) => {
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      //console.log('You can use the location');
+      return resolve('granted');
+    }
+    //console.log('Location permission denied');
+    return reject('Location Permission denied');
+  }).catch((error) => {
+    console.log('Ask Location permission error: ', error);
+    return reject(error);
+  });
 });

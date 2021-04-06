@@ -13,6 +13,7 @@ export default{
     YOUR_EMAIL:"Your email *",
     YOUR_PHONE_NUMBER:"Your phone no *",
     LOGOUT: 'logout',
+    OR_LOGIN_WITH: 'or Login With',
 
 
 

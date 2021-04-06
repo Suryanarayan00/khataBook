@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+
 // custom Component import
 import IconTextRow from '../../../Component/IconTextRow';
 import ImageIcon from '../../../Component/ImageIcon';
@@ -21,9 +22,11 @@ import commonStyles from '../../../styles/commonStyles';
 class Home extends Component {
 
 
-    changeThemeColor=()=>{
+    changeThemeColor = () => {
         actions.changeThemeColor('red');
     }
+
+
 
     render() {
         return (
@@ -31,7 +34,7 @@ class Home extends Component {
 
 
                 {/* box */}
-                <View style={commonStyles.box}>
+                < View style={commonStyles.box} >
                     <View style={[commonStyles.inline, { paddingVertical: 15, justifyContent: 'space-between', alignItems: 'center' }]}>
                         <View style={[commonStyles.inline, commonStyles.center]}>
                             <ImageIcon size={18} source={imagePath.book} backgroundColor={colors.themeColor} tintColor={colors.white} />
@@ -39,7 +42,7 @@ class Home extends Component {
                             <ImageIcon size={18} iconStyle={{ marginHorizontal: 3 }} source={imagePath.downArrow} backgroundColor={colors.themeColor} tintColor={colors.white} />
                         </View>
                         <View style={[commonStyles.inline, commonStyles.center]}>
-                            <TouchableOpacity onPress={this.changeThemeColor} style={[commonStyles.paddingBox,commonStyles.border, {backgroundColor: colors.theme2Color}]}><Text>theme</Text></TouchableOpacity>
+                            {/* <TouchableOpacity onPress={()=>this.props.navigation.toggleDrawer()} style={[commonStyles.paddingBox, commonStyles.border, { backgroundColor: colors.theme2Color }]}><Text>theme</Text></TouchableOpacity> */}
                             <TouchableOpacity onPress={actions.logout} style={[commonStyles.paddingBox, commonStyles.border]}><Text>{strings.LOGOUT}</Text></TouchableOpacity>
                         </View>
                     </View>
@@ -65,25 +68,25 @@ class Home extends Component {
                         </TouchableOpacity>
                     </View>
 
-                </View>
+                </View >
 
 
 
                 {/* search and filter */}
-                <View style={[commonStyles.inline, commonStyles.center, { paddingTop: 5, paddingHorizontal: 15, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.borderLight, width: '100%' }]}>
+                < View style={[commonStyles.inline, commonStyles.center, { paddingTop: 5, paddingHorizontal: 15, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.borderLight, width: '100%' }]} >
                     <ImageIcon size={18} source={imagePath.search} />
                     <TextInput style={{ width: '84%', marginLeft: 3 }} placeholder={'number ' + strings.CUSTOMER} />
                     <ImageIcon iconStyle={{ marginHorizontal: 3 }} size={18} source={imagePath.filter} />
                     <ImageIcon size={28} source={imagePath.pdf} />
-                </View>
+                </View >
 
 
                 {/* add customer button */}
-                <TouchableOpacity style={[commonStyles.border, commonStyles.center, { position: 'absolute', width: '50%', bottom: 10, right: 10, backgroundColor: colors.pink, }]}>
+                < TouchableOpacity style={[commonStyles.border, commonStyles.center, { position: 'absolute', width: '50%', bottom: 10, right: 10, backgroundColor: colors.pink, }]} >
                     <IconTextRow size={29} tintColor={colors.white} iconStyle={{ backgroundColor: colors.pink, paddingRight: 10 }} text={strings.ADD_CUSTOMER} source={imagePath.addCustomer} />
-                </TouchableOpacity>
+                </TouchableOpacity >
 
-            </WrapperContainer>
+            </WrapperContainer >
         )
     }
 }
