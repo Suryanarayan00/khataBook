@@ -14,8 +14,13 @@ export default{
     qrCode: require('../assets/images/qrCode.jpg'),
     back: require('../assets/images/back.png'),
     addCustomer: require('../assets/images/addCustomer.jpg'),
+
+    // png image
     apple: require('../assets/images/ic_apple.png'),
     faceBook: require('../assets/images/ic_facebook.png'),
     google: require('../assets/images/ic_google.png'),
     insta: require('../assets/images/ic_insta.png'),
+
+    // png image end
+    user: require('../assets/images/user.jpg'),
 }

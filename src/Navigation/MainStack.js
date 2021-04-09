@@ -6,7 +6,6 @@ import LeftDrawer from './Drawer';
 export default function (Stack) {
     return (
         <Fragment>
-            {/* <Stack.Screen name={navigationStrings.MAIN} component={BottomTabNavigator} options={{ headerShown: false }} /> */}
             <Stack.Screen name={navigationStrings.DRAWER} component={LeftDrawer} options={{ headerShown: false }} />
         </Fragment>
     )

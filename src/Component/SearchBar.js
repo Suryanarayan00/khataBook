@@ -6,7 +6,7 @@ import fontFamily from '../styles/fontFamily';
 import {moderateScale, moderateScaleVertical} from '../styles/responsiveSize';
 import ImageIcon from './ImageIcon';
 
-export default function SearchBar({containerStyle = {}, placeholder = '', onChangeText}) {
+export default function SearchBar({containerStyle = {}, placeholder = '', source=imagePath.search, onChangeText}) {
   return (
     <View
       style={{
@@ -17,7 +17,7 @@ export default function SearchBar({containerStyle = {}, placeholder = '', onChan
         alignItems: 'center',
         ...containerStyle,
       }}>
-      <ImageIcon source={imagePath.search} tintColor={colors.themeColor} size={25}/>
+      <ImageIcon source={source} tintColor={colors.themeColor} size={25}/>
       {/* <Image style={{opacity: 0.7, tintColor: colors.themeColor}} source={imagePath.search} /> */}
       <View style={{flex: 1,marginLeft:10}}>
         <TextInput

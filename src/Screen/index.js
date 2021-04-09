@@ -1,3 +1,5 @@
+export {default as OneToOneChatScreen} from "./OneToOneChatScreen/OneToOneChatScreen";
+export {default as Chat} from "./Chat/Chat";
 export {default as BarGraph} from "./Drawer/BarGraph/BarGraph";
 export {default as PieChart} from "./Drawer/PieChart/PieChart";
 export {default as SearchCustomer} from "./Main/SearchCustomer/SearchCustomer";

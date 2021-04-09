@@ -2,8 +2,10 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import navigationStrings from '../constant/navigationStrings';
 import BottomTabNavigator from './BottomTabNavigator';
-import { BarGraph, PieChart } from '../Screen';
+import { BarGraph, Chat, PieChart } from '../Screen';
 import colors from '../styles/colors';
+import ChatStack from './ChatStack';
+
 
 
 export default function LeftDrawer() {
@@ -19,6 +21,8 @@ export default function LeftDrawer() {
         >
             <Drawer.Screen name={navigationStrings.MAIN}
                 component={BottomTabNavigator} />
+            <Drawer.Screen name={navigationStrings.CHAT}
+                component={ChatStack} />
             <Drawer.Screen name={navigationStrings.BAR_GRAPH}
                 component={BarGraph} />
             <Drawer.Screen name={navigationStrings.PIE_CHART}

@@ -2,6 +2,9 @@ export default{
 
     WELCOME_NOTE: 'Welcome to the KhataBook, Manage your customer Account Easily',
     KHATABOOK: 'Khata Book',
+    CLOSE: 'close',
+    WHATSAPP: 'CHATBOX',
+
 
     // login Screen;
     LOGIN: 'Login',
@@ -60,9 +63,10 @@ export default{
     TOTAL: 'total',
     ENTRIES: 'entries',
     VIEW: 'view',
+    OPEN_SCANNER: 'Open Scanner',
     REQUEST_MONEY: 'Request Money',
     QR_CODE: 'Order QR Code',
-    ADD_CUSTOMER: 'ADD CUSTOMER'
-
+    ADD_CUSTOMER: 'ADD CUSTOMER',
+    QR_CODE_VALUE: 'khataBook',
     
 }

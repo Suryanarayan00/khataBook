@@ -12,5 +12,8 @@ export default{
     PIE_CHART: 'pieChart',
     BAR_GRAPH: 'barGraph',
     DRAWER: 'drawer',
+    CHAT: 'chat',
+    MAIN_CHAT: 'mainChat',
+    CONVERSATION: 'conv',
 
 }
