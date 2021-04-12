@@ -6,7 +6,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-  Platform
+  Platform,
 } from 'react-native';
 import colors from '../styles/colors';
 import commonStyles, {hitSlopProp} from '../styles/commonStyles';
@@ -29,10 +29,10 @@ export default function BorderTextInput({
   const inputRef = useRef();
 
   useEffect(() => {
-    if (withRef&&Platform.OS==='android') {
+    if (withRef && Platform.OS === 'android') {
       if (inputRef.current) {
         inputRef.current.setNativeProps({
-          style: {fontFamily:fontFamily.regular},
+          style: {fontFamily: fontFamily.regular},
         });
       }
     }
@@ -59,10 +59,10 @@ export default function BorderTextInput({
         placeholderTextColor={color}
         style={{
           flex: 1,
-          opacity:.7,
+          opacity: 0.7,
           color,
-          fontFamily:fontFamily.medium,
-          fontSize:textScale(16),
+          fontFamily: fontFamily.medium,
+          fontSize: textScale(16),
           paddingHorizontal: 10,
           paddingTop: 0,
           paddingBottom: 0,

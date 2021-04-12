@@ -60,7 +60,9 @@ class WSService {
   emit(event, data = {}) {
     // logger.log('event to be emitted is: ', event);
     // logger.data('data to be emitted is: ', data);
-    this.socket.emit(event, data);
+     this.socket.emit(event, data);
+
+   
   }
 
   on(event, cb) {

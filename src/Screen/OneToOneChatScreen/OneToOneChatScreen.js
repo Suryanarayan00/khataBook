@@ -1,176 +1,166 @@
-import React, { Component } from 'react';
-import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
-import SearchBar from '../../Component/SearchBar';
-import WrapperContainer from '../../Component/WrapperContainer';
-import imagePath from '../../constant/imagePath';
-import colors from '../../styles/colors';
+import React, {Component} from 'react';
+import {Text, TouchableOpacity, View, Image} from 'react-native';
+import {GiftedChat} from 'react-native-gifted-chat';
+import {connect} from 'react-redux';
+import styles from './styles';
 import commonStyles from '../../styles/commonStyles';
-import { moderateScaleVertical } from '../../styles/responsiveSize';
-import socketServices from '../../utils/socketServices';
-import { GiftedChat, Bubble, Composer, Send } from 'react-native-gifted-chat';
+import imagePath from '../../constant/imagePath';
 import socketStrings from '../../constant/socketStrings';
-
+import actions from '../../redux/actions';
+import socketServices from '../../utils/socketServices';
+import {MaterialIndicator} from 'react-native-indicators';
 
 class OneToOneChatScreen extends Component {
+  state = {
+    messages: [],
+    isLoading: false,
+  };
 
+  componentDidMount() {
+    let {userData} = this.props;
+    this.setState({isLoading: true});
+    socketServices.initializeSocket(userData.accessToken);
+    setTimeout(() => {
+      this.getChatListing();
+      socketServices.on(socketStrings.RECEIVED_MESSAGE, this.onReceiveMessage);
+    });
+  }
 
+  onSend(messages = []) {
+    // alert(JSON.stringify(socketServices.emit));
 
-    constructor(props) {
-        super(props);
-        // const favConv = props.route.params.favConv;
-        this.state = {
-            messages: [],
-            currentMsg: '',
-            //   favConv,
-            //   userCurrentLevel: {},
-            //   showUploadPhotoAlert: false,
-            //   isLoading: true,
-            //   isLoadingEarlier: false,
-            //   questionModal: false,
-            //   showLevelUpModal: false,
-        };
+    if (String(messages[0].text).trim().length < 1) {
+      return;
     }
+    const {id, commonConversationId} = this.props.route.params;
+    const {userData} = this.props;
 
+    socketServices.emit(socketStrings.SEND_MESSAGE, {
+      senderId: userData._id,
+      recieverId: id,
+      commonConversationId,
+      messageType: 'Text',
+      text: messages[0].text,
+    });
+    console.log(messages);
+    this.setState(previousState => {
+      return {
+        messages: GiftedChat.append(previousState.messages, messages),
+      };
+    });
+  }
+  componentWillUnmount() {
+    socketServices.removeListener(socketStrings.ACKNOWLEDGED_SENT_BY_RECEIVER);
+    socketServices.removeListener(socketStrings.RECEIVED_MESSAGE);
+  }
 
-    //   componentDidMount() {
-    //     // this.onLevelUp({level: 10});
-    //     const {commonConversationId, _id} = this.props.route.params;
-    //     actions.currentChatIdUpdate({id: _id});
-    //     console.log(_id, 'the _id is as follow');
-    //     //To get a new message
-    //     socketServices.on(SOCKET_STRINGS.RECEIVED_MESSAGE, this.onReceiveMessage);
-    //     socketServices.on(SOCKET_STRINGS.LEVEL_UP, this.onLevelUp);
-    //     //To get acknowledment that the sent message has been received by the user.
-    //     socketServices.on(
-    //       SOCKET_STRINGS.ACKNOWLEDGED_SENT_BY_RECEIVER,
-    //       this.acknowlegmentMessageRecieve,
-    //     );
-    //   }
+  getChatListing = () => {
+    const {commonConversationId, id} = this.props.route.params;
+    actions
+      .getFullConversation(
+        `?commonConversationId=${commonConversationId}&limit=100`,
+      )
+      .then(res => {
+        console.log(res.data);
 
-
-
-
-
-    onReceiveMessage = data => {
-        const {
-            commonConversationId,
-            firstName,
-            profileImg,
-        } = this.props.route.params.data;
-        const message = {
+        //To send back response that all the messages have been seen;
+        socketServices.emit(socketStrings.SEEN_ALL_MESSAGES, {
+          senderId: id,
+          isRead: true,
+          recieverId: (this.props.userData && this.props.userData._id) || '',
+        });
+        //Initalizing the chat history
+        const messages = res.data.map((data, index) => {
+          let message = {
             _id: data._id,
             text: data.text,
             createdAt: data.createdAt,
             user: {
-                _id: data.senderId,
-                name: firstName,
-                avatar: profileImg && profileImg[0].thumbnail,
+              _id: data.senderId?._id,
+              name: data.senderId.firstName,
+              // avatar: profileImg && profileImg[0].thumbnail,
             },
-        };
-        // console.log(data,"----------data")
-        // console.log(commonConversationId,'the commonejoijoj');
-        //To make sure that all the messages are seen if new message comes
+          };
+          if (!!data.repliedToText) {
+            message.replyText = data.repliedToText;
+          }
+          return message;
+        });
+        this.setState({isLoading: false, messages});
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-        if (data.commonConversationId === commonConversationId) {
-            socketServices.emit(SOCKET_STRINGS.SEEN_ALL_MESSAGES, {
-                senderId: data.senderId,
-                isRead: true,
-                recieverId: data.recieverId,
-            });
-
-            this.setState(previousState => ({
-                messages: GiftedChat.append(previousState.messages, message),
-            }));
-        }
+  onReceiveMessage = data => {
+    const {commonConversationId, profileImage, name} = this.props.route.params;
+    const message = {
+      _id: data._id,
+      text: data.text,
+      createdAt: data.createdAt,
+      user: {
+        _id: data.senderId,
+        name: name,
+        avatar: profileImage,
+      },
     };
 
+    if (data.commonConversationId === commonConversationId) {
+      socketServices.emit(socketStrings.SEEN_ALL_MESSAGES, {
+        senderId: data.senderId,
+        isRead: true,
+        recieverId: data.recieverId,
+      });
 
-
-
-
-    onSend(messages = []) {
-        if (String(messages[0].text).trim().length < 1) {
-            return;
-        }
-        const { _id, commonConversationId } = this.props.route.params;
-        const { userData } = this.props;
-        // To send new message
-        socketServices.emit(SOCKET_STRINGS.SEND_MESSAGE, {
-            senderId: userData._id,
-            recieverId: _id,
-            commonConversationId,
-            messageType: 'Text',
-            text: messages[0].text,
-        });
-        this.setState(previousState => ({
-            messages: GiftedChat.append(previousState.messages, messages),
-        }));
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, message),
+      }));
     }
+  };
 
+  render() {
+    const {messages, isLoading} = this.state;
+    const {userData} = this.props;
+    const {profileImage, name, lastSeen} = this.props.route.params;
 
-    render() {
-        const { userData } = this.props;
-        // const { data } = this.props.route.params;
-        // console.log(data);
-        console.log(userData.accessToken);
-        socketServices.initializeSocket(userData.accessToken);
-        return (
-            <WrapperContainer>
-                <View style={[style.profileHeader, commonStyles.inline]}>
-                    <TouchableOpacity style={[commonStyles.center, { paddingHorizontal: 10 }]} onPress={this.props.navigation.goBack}>
-                        <Image source={imagePath.back} style={style.back} />
-                    </TouchableOpacity>
-                    <View>
-                        <Image source={imagePath.user} style={style.profileImage} />
-                    </View>
-                    <Text style={[commonStyles.buttonTextWhite, { padding: 10 }]}>Name</Text>
-                </View>
-                <View>
-
-                </View>
-
-
-
-                {/* search bar */}
-                <SearchBar source={imagePath.book} containerStyle={style.searchBar} />
-            </WrapperContainer>
-        )
-    }
+    return (
+      <>
+        <View style={[styles.profileHeader, commonStyles.inline]}>
+          <TouchableOpacity
+            style={[commonStyles.center, {paddingHorizontal: 10}]}
+            onPress={this.props.navigation.goBack}>
+            <Image source={imagePath.back} style={styles.back} />
+          </TouchableOpacity>
+          <View style={commonStyles.center}>
+            <Image source={{uri: profileImage}} style={styles.profileImage} />
+          </View>
+          <View>
+            <Text style={[commonStyles.buttonTextWhite, {padding: 10}]}>
+              {name}
+            </Text>
+            <Text style={[commonStyles.buttonTextWhite, {fontSize: 10}]}>
+              last Seen {lastSeen}
+            </Text>
+          </View>
+        </View>
+        {isLoading ? <MaterialIndicator animating={isLoading} /> : null}
+        <GiftedChat
+          messages={messages}
+          onSend={messages => this.onSend(messages)}
+          user={{
+            _id: userData._id,
+          }}
+        />
+      </>
+    );
+  }
 }
 
+const mapStateToProps = state => {
+  return {
+    userData: state.authReducers.userData,
+  };
+};
 
-const mapStateToProps = (state) => {
-    return {
-        userData: state.authReducers.userData,
-    }
-}
-
-export default connect(mapStateToProps)(OneToOneChatScreen)
-
-
-const style = StyleSheet.create({
-    profileHeader: {
-        height: moderateScaleVertical(60),
-        backgroundColor: colors.green,
-        marginBottom: moderateScaleVertical(5),
-    },
-    profileImage: {
-        margin: 2,
-        borderRadius: 40,
-        height: "80%",
-        width: 60,
-    },
-    searchBar: {
-        ...commonStyles.border,
-        ...commonStyles.absoluteBottom,
-        bottom: 2
-    },
-    back: {
-        margin: 2,
-        borderRadius: 40,
-        height: 30,
-        width: 30,
-        paddingHorizontal: 10,
-    }
-})
+export default connect(mapStateToProps)(OneToOneChatScreen);

@@ -20,6 +20,16 @@ export default{
 
 
 
+    // text input
+    ENTER_PHONE: " enter your phone number",
+    ENTER_PASSWORD: 'Enter your password',
+    ENTER_EAMIL: "Enter your name",
+    ENTER_NAME: "Enter your name",
+    NAME_LABEL: 'Name',
+    PASSWORD_LABEL: 'Password',
+    PHONE_LABEL: 'phone Number',
+
+
     // otp verification;
     OTP_VERIFICATION:"OTP Verification",
     ENTER_OTP_SENT:"Enter the OTP sent to your registered email and phone number",

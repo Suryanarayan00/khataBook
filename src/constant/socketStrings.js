@@ -1,7 +1,7 @@
 export default {
     SEND_MESSAGE: 'sendMessage',
     SEEN_ALL_MESSAGES: 'seeenAllMessage',
-    RECIEVED_MESSAGE: 'receiveMessage',
+    RECEIVED_MESSAGE: 'receiveMessage',
     ACKNOWLEDGED_SENT_BY_RECEIVER: 'acknowledged',
     RECEIVED_ALL_MESSAGES_LIST: 'recieveAllMessage',
     LAST_CONVERSATION_NEW_MESSAGE: 'lastCovesationCount',

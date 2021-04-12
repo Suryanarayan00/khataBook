@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import {View, Text, Image} from 'react-native';
 import commonStyles from '../styles/commonStyles';
 import colors from '../styles/colors';
-import { textScale } from '../styles/responsiveSize';
+import {textScale} from '../styles/responsiveSize';
 import ImageIcon from './ImageIcon';
 
 export default function IconTextRow({
@@ -14,13 +14,18 @@ export default function IconTextRow({
   tintColor,
   size,
   backgroundColor,
-  iconStyle={}
+  iconStyle = {},
 }) {
   return (
     <View>
-      {position == 'left' ?
-        <View style={{ flexDirection: 'row', ...style }}>
-          <ImageIcon source={source} iconStyle={iconStyle}  tintColor={tintColor} size={size} />
+      {position == 'left' ? (
+        <View style={{flexDirection: 'row', ...style}}>
+          <ImageIcon
+            source={source}
+            iconStyle={iconStyle}
+            tintColor={tintColor}
+            size={size}
+          />
           <Text
             style={{
               ...commonStyles.mediumText,
@@ -32,9 +37,9 @@ export default function IconTextRow({
             }}>
             {text}
           </Text>
-        </View> :
-        <View style={{ flexDirection: 'row', alignItems: 'center', ...style }}>
-
+        </View>
+      ) : (
+        <View style={{flexDirection: 'row', alignItems: 'center', ...style}}>
           <Text
             style={{
               ...commonStyles.mediumText,
@@ -47,7 +52,8 @@ export default function IconTextRow({
             {text}
           </Text>
           <ImageIcon source={source} tintColor={tintColor} size={size} />
-        </View>}
+        </View>
+      )}
     </View>
   );
 }

@@ -2,10 +2,10 @@ import {StyleSheet} from 'react-native';
 import colors from '../../styles/colors';
 import commonStyles from '../../styles/commonStyles';
 import fontFamily from '../../styles/fontFamily';
-import { moderateScale, moderateScaleVertical } from '../../styles/responsiveSize';
-
-
-
+import {
+  moderateScale,
+  moderateScaleVertical,
+} from '../../styles/responsiveSize';
 
 export default StyleSheet.create({
   header: {
@@ -21,33 +21,38 @@ export default StyleSheet.create({
     fontFamily: fontFamily.medium,
     marginTop: moderateScaleVertical(15),
   },
-  socialRow:{
+  socialRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  socialRowBtn:{
+  socialRowBtn: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: moderateScaleVertical(40),
   },
-  hyphen:{
+  hyphen: {
     width: 20,
     height: 1,
     backgroundColor: colors.textGrey,
     opacity: 0.6,
   },
-  bottomContainer:{
+  bottomContainer: {
     flex: 1,
     justifyContent: 'flex-end',
     marginBottom: moderateScaleVertical(30),
   },
-  guestBtn:{
+  innerBottomContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  guestBtn: {
     marginTop: moderateScaleVertical(20),
     backgroundColor: colors.lightSky,
     borderWidth: 0,
   },
-  orText:{
+  orText: {
     ...commonStyles.mediumFont14,
     lineHeight: 24,
     textAlign: 'center',
@@ -56,12 +61,12 @@ export default StyleSheet.create({
     marginTop: 0,
     marginHorizontal: moderateScale(16),
   },
-  alreadyText:{
+  alreadyText: {
     color: colors.textGreyLight,
     marginTop: 0,
   },
-  login:{
+  login: {
     color: colors.themeColor,
     fontFamily: fontFamily.futuraBtHeavy,
-  }
+  },
 });

@@ -1,4 +1,4 @@
-import {Linking,Platform} from 'react-native';
+import {Linking, Platform} from 'react-native';
 
 export const openGps = (lat, lng) => {
   const scheme = Platform.select({ios: 'maps:0,0?q=', android: 'geo:0,0?q='});
@@ -23,12 +23,11 @@ export function dialCall(phoneNumber) {
 }
 
 export function openBrowser(url) {
-  Linking.openURL(url).catch((error) => {
+  Linking.openURL(url).catch(error => {
     showError('Could not load page');
   });
 }
 
-
-export function openEmail(email){
+export function openEmail(email) {
   Linking.openURL(`mailto:${email}`);
 }

@@ -25,8 +25,6 @@ export default function LeftDrawer() {
                 component={ChatStack} />
             <Drawer.Screen name={navigationStrings.BAR_GRAPH}
                 component={BarGraph} />
-            <Drawer.Screen name={navigationStrings.PIE_CHART}
-                component={PieChart} />
         </Drawer.Navigator>
 
     )

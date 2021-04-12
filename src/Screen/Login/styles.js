@@ -20,33 +20,33 @@ export default StyleSheet.create({
     fontFamily: fontFamily.medium,
     marginTop: moderateScaleVertical(15),
   },
-  socialRow:{
+  socialRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  socialRowBtn:{
+  socialRowBtn: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: moderateScaleVertical(40),
   },
-  hyphen:{
+  hyphen: {
     width: 20,
     height: 1,
     backgroundColor: colors.textGrey,
     opacity: 0.6,
   },
-  bottomContainer:{
+  bottomContainer: {
     // flex: 1,
     // justifyContent: 'flex-end',
     marginBottom: moderateScaleVertical(30),
   },
-  guestBtn:{
+  guestBtn: {
     marginTop: moderateScaleVertical(20),
     backgroundColor: colors.lightSky,
     borderWidth: 0,
   },
-  orText:{
+  orText: {
     lineHeight: 24,
     textAlign: 'center',
     fontFamily: fontFamily.medium,
@@ -59,18 +59,23 @@ export default StyleSheet.create({
     borderRadius: 30,
     tintColor: colors.spanColor,
     width: 30,
-    height: 30
+    height: 30,
   },
   fixedTopCenter: {
     fontSize: 25,
     fontWeight: 'bold',
     position: 'absolute',
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   inline: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  }
+  },
+  main: {
+    height: moderateScaleVertical(80),
+    paddingHorizontal: moderateScale(24),
+    justifyContent: 'center',
+  },
 });
