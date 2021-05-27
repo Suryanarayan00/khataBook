@@ -9,6 +9,3 @@ export function feedbackData(data) {
 export function seacrhCustomer(query) {
     return apiGet(`${SEARCH_USER_API}${query}`);
 }
-
-
-// {"searchType": "LEADERBOARD", "limit":"10", "skip":"0"}

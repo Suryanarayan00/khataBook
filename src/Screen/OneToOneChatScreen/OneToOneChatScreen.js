@@ -55,7 +55,7 @@ class OneToOneChatScreen extends Component {
   }
 
   getChatListing = () => {
-    const {commonConversationId, id} = this.props.route.params;
+    const {commonConversationId, id, profileImage} = this.props.route.params;
     actions
       .getFullConversation(
         `?commonConversationId=${commonConversationId}&limit=100`,
@@ -78,7 +78,7 @@ class OneToOneChatScreen extends Component {
             user: {
               _id: data.senderId?._id,
               name: data.senderId.firstName,
-              // avatar: profileImg && profileImg[0].thumbnail,
+              avatar: profileImage,
             },
           };
           if (!!data.repliedToText) {

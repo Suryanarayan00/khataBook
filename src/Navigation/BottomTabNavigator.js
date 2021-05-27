@@ -1,7 +1,7 @@
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {Credit, CustomerFeedback, Home, SearchCustomer} from '../Screen';
+import {Credit, CustomerFeedback, Home, Notifications, ReadBlog, SearchCustomer} from '../Screen';
 import colors from '../styles/colors';
 import fontFamily from '../styles/fontFamily';
 import navigationStrings from '../constant/navigationStrings';
@@ -43,14 +43,23 @@ export default function () {
           ),
         }}
       />
-
-      <Tab.Screen
-        name={navigationStrings.DEBIT}
-        component={SearchCustomer}
+<Tab.Screen
+        name={navigationStrings.READ_BLOG}
+        component={ReadBlog}
         options={{
-          tabBarLabel: 'Search',
+          tabBarLabel: 'Blog',
           tabBarIcon: ({color}) => (
-            <ImageIcon source={imagePath.search} size={27} tintColor={color} />
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={navigationStrings.NOTIFICATION}
+        component={Notifications}
+        options={{
+          tabBarLabel: 'Notifications',
+          tabBarIcon: ({color}) => (
+            <ImageIcon source={imagePath.setting} size={27} tintColor={color} />
           ),
         }}
       />

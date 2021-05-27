@@ -42,8 +42,7 @@ export default function OuterScreen({navigation}) {
           />
         </View>
         <View style={styles.bottomContainer}>
-          <View
-            style={styles.innerBottomContainer}>
+          <View style={styles.innerBottomContainer}>
             <Text style={[styles.txtSmall, styles.alreadyText]}>
               {strings.DID_NOT_HAVE_AN_ACCOUNT}
             </Text>

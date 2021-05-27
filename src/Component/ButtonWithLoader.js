@@ -6,13 +6,15 @@ import colors from '../styles/colors';
 const ButtonWithLoader = ({
   onPress = () => {},
   btnText = '',
+  containerStyle,
   btnTextStyle = {},
   btnStyle = {},
   isLoading = false,
   color = colors.white,
 }) => {
   return (
-    <TouchableOpacity
+    <View style={containerStyle}>
+      <TouchableOpacity
       style={{
         ...commonStyles.buttonRect,
         marginTop: moderateScaleVertical(20),
@@ -27,6 +29,7 @@ const ButtonWithLoader = ({
         </Text>
       )}
     </TouchableOpacity>
+    </View>
   );
 };
 

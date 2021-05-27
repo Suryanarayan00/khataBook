@@ -41,5 +41,27 @@ export default {
     yellow: '#ff8c1a',
     pink: '#ff9999',
 
+
+
+
+
+
+
+
+    // blog color
+    greenTop: '#058b80',
+    greenBottom: '#026259',
+    textColorDarkBlack: '#222222',
+    textColorLightBlack: '#353535',
+    textColorLightertBlack: '#373d3f',
+    white: '#fff',
+    backgroundColor: '#f5f6fc',
+    backgroundColor2: '#e1e9f5',
+    barStyle: 'light-content',
+    blue: '#107896',
+    yellow: '#fab442',
+
+
+
   };
   

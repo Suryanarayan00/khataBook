@@ -16,4 +16,10 @@ export default{
     MAIN_CHAT: 'mainChat',
     CONVERSATION: 'conv',
 
+
+
+
+    // blog screen
+    READ_BLOG: 'readBlog',
+    NOTIFICATION: 'notification',
 }

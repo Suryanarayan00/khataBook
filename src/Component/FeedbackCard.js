@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import {MaterialIndicator} from 'react-native-indicators';
 import colors from '../styles/colors';
@@ -16,7 +17,14 @@ import fontFamily from '../styles/fontFamily';
 import {textScale} from '../styles/responsiveSize';
 
 export default function FeedbackCard(props) {
-  const {data, _handleLoadMore, refreshing, isLoading, onRefresh} = props;
+  const {
+    data,
+    _handleLoadMore,
+    refreshing,
+    isLoading,
+    onRefresh,
+    showImage,
+  } = props;
 
   let renderFooter = () => {
     if (isLoading) {
@@ -42,23 +50,22 @@ export default function FeedbackCard(props) {
       questions,
     } = item;
     return (
-      <SafeAreaView
-        style={[
-          commonStyles.shadowStyle,
-          {marginBottom: 6, padding: 10, marginLeft: 6, marginRight: 6},
-        ]}>
+      <SafeAreaView style={style.main}>
         <View style={[commonStyles.inline, {justifyContent: 'space-evenly'}]}>
           <View style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
-            <Image
-              source={{uri: profileImg[0].thumbnail}}
-              style={style.testimonialImage}
-            />
+            <TouchableOpacity
+              onPress={() => showImage(profileImg[0].thumbnail)}>
+              <Image
+                source={{uri: profileImg[0].thumbnail}}
+                style={style.testimonialImage}
+              />
+            </TouchableOpacity>
             <View>
               <Text style={commonStyles.smallGreyFont}>{bio.slice(0, 17)}</Text>
               <View style={commonStyles.inline}>
                 <Text style={[commonStyles.smallGreyFont]}>
                   {' '}
-                  {dob.date}/{dob.month}/{dob.year}{' '}
+                  {/* {dob.date}/{dob.month}/{dob.year}{' '} */}
                 </Text>
                 <Text style={[commonStyles.smallGreyFont]}>{gender}</Text>
               </View>
@@ -119,6 +126,13 @@ export default function FeedbackCard(props) {
 }
 
 const style = StyleSheet.create({
+  main: {
+    ...commonStyles.shadowStyle,
+    marginBottom: 6,
+    padding: 10,
+    marginLeft: 6,
+    marginRight: 6,
+  },
   card: {
     margin: 4,
     padding: 10,

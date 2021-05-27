@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Image, Dimensions, Modal} from 'react-native';
 import FeedbackCard from '../../../Component/FeedbackCard';
 import ImageIcon from '../../../Component/ImageIcon';
 import SearchBar from '../../../Component/SearchBar';
@@ -9,6 +9,13 @@ import actions from '../../../redux/actions';
 import colors from '../../../styles/colors';
 import commonStyles from '../../../styles/commonStyles';
 import {clearUserData} from '../../../utils/utils';
+import ImageZoom from 'react-native-image-pan-zoom';
+import GradientButton from '../../../Component/GradientButton';
+
+
+
+
+
 
 class CustomerFeedback extends Component {
   state = {
@@ -18,6 +25,7 @@ class CustomerFeedback extends Component {
     isLoading: false,
     noMoreData: false,
     refreshing: false,
+    isVisible: '',
   };
 
   // get api function
@@ -88,8 +96,15 @@ class CustomerFeedback extends Component {
     this.getData();
   };
 
+  showImage = image => {
+    this.setState({isVisible: image});
+  };
+  closeModal = () => {
+    this.setState({isVisible: ''});
+  };
+
   render() {
-    let {data, refreshing, isLoading} = this.state;
+    let {data, refreshing, isLoading, isVisible} = this.state;
     return (
       <WrapperContainer>
         <View style={commonStyles.box}>
@@ -146,8 +161,25 @@ class CustomerFeedback extends Component {
             renderFooter={this.renderFooter}
             data={data}
             _handleLoadMore={this._handleLoadMore}
+            showImage={this.showImage}
           />
         }
+
+        {isVisible ? (
+          <View style={{paddingBottom: 40}}>
+            <ImageZoom
+              cropWidth={Dimensions.get('window').width}
+              cropHeight={Dimensions.get('window').height * 0.7}
+              imageWidth={200}
+              imageHeight={200}>
+              <Image
+                style={{width: 200, height: 200}}
+                source={{uri: isVisible}}
+              />
+            </ImageZoom>
+            <GradientButton btnText="close" onPress={this.closeModal} />
+          </View>
+        ) : null}
       </WrapperContainer>
     );
   }

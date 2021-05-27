@@ -8,12 +8,13 @@ import {
   moderateScale,
   moderateScaleVertical,
 } from '../styles/responsiveSize';
-import imagePath from '../constants/imagePath';
-import {useNavigation} from '@react-navigation/native';
+import imagePath from '../constant/imagePath';
 import {hitSlopProp} from '../styles/commonStyles';
+import MyIcon from './MyIcon';
 
 const Header = ({
-  leftIcon = imagePath.back,
+  headerStyle,
+  leftIcon = imagePath.rightArrow,
   centerTitle,
   textStyle,
   horizontLine = true,
@@ -21,9 +22,8 @@ const Header = ({
   onPressLeft,
   onPressRight,
   customRight,
-  hideRight=true
+  hideRight = true,
 }) => {
-  const navigation = useNavigation();
   return (
     <>
       <View
@@ -32,20 +32,15 @@ const Header = ({
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
+          ...headerStyle
         }}>
-          <View style={{alignItems:'flex-start',minWidth:moderateScale(72)}}>
-        <TouchableOpacity
-          hitSlop={hitSlopProp}
-          activeOpacity={0.7}
-          onPress={
-            !!onPressLeft
-              ? onPressLeft
-              : () => {
-                  navigation.goBack();
-                }
-          }>
-          <Image resizeMode="contain" source={leftIcon} />
-        </TouchableOpacity>
+        <View style={{alignItems: 'flex-start', minWidth: moderateScale(72)}}>
+          <TouchableOpacity
+            hitSlop={hitSlopProp}
+            activeOpacity={0.7}
+            onPress={!!onPressLeft ? onPressLeft : () => {}}>
+            <MyIcon source={leftIcon}/>
+          </TouchableOpacity>
         </View>
         <Text
           style={{
@@ -55,16 +50,18 @@ const Header = ({
           }}>
           {centerTitle}
         </Text>
-        <View style={{alignItems:'flex-end',minWidth:moderateScale(72)}}>
-        {!!rightIcon ? (
-          <TouchableOpacity onPress={onPressRight}>
-            <Image source={rightIcon} />
-          </TouchableOpacity>
-        ) : !!customRight ? (
-          customRight()
-        ) : (
-         hideRight? <View style={{width: 25}} />:<Image source={imagePath.cartShop}/>
-        )}
+        <View style={{alignItems: 'flex-end', minWidth: moderateScale(72)}}>
+          {!!rightIcon ? (
+            <TouchableOpacity onPress={onPressRight}>
+              <MyIcon source={rightIcon}/>
+            </TouchableOpacity>
+          ) : !!customRight ? (
+            customRight()
+          ) : hideRight ? (
+            <View style={{width: 25}} />
+          ) : (
+            <Image source={imagePath.cartShop} />
+          )}
         </View>
       </View>
     </>
@@ -73,9 +70,14 @@ const Header = ({
 export default Header;
 const styles = StyleSheet.create({
   headerStyle: {
-    padding: moderateScaleVertical(16),
+    // padding: moderateScaleVertical(16),
   },
-
+  leftIcon: {
+    height: 25,
+    width: 25,
+    tintColor: colors.textGreyB,
+    backgroundColor: colors.white,
+  },
   textStyle: {
     color: colors.black2Color,
     fontSize: textScale(17),
